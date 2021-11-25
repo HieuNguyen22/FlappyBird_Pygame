@@ -1,4 +1,4 @@
-import pygame, sys, random 
+import pygame, sys, random, time
 
 ## Ham 
 # Ve san
@@ -156,7 +156,7 @@ high_score = 0
 can_score = True
 
 # Check thay doi
-check_player = 0 	# Biến check người chơi
+check_player = 0 	# Biến check nhân vật
 call_change_bg = 0
 call_change_speed = 0
 
@@ -343,9 +343,9 @@ while True:
 				elif check_player == 1:
 					if witch_cheems == 0:
 						witch_cheems = 1
-						bird_downflap = pygame.transform.scale(pygame.image.load('assets/cheem.png').convert_alpha(),(55,55))
-						bird_midflap = pygame.transform.scale(pygame.image.load('assets/cheem.png').convert_alpha(),(55,55))
-						bird_upflap = pygame.transform.scale(pygame.image.load('assets/cheem.png').convert_alpha(),(55,55))
+						bird_downflap = pygame.transform.scale(pygame.image.load('assets/ghost.png').convert_alpha(),(65,65))
+						bird_midflap = pygame.transform.scale(pygame.image.load('assets/ghost.png').convert_alpha(),(65,65))
+						bird_upflap = pygame.transform.scale(pygame.image.load('assets/ghost.png').convert_alpha(),(65,65))
 						bird_frames = [bird_downflap,bird_midflap,bird_upflap]
 					else:
 						witch_cheems = 0
@@ -565,6 +565,9 @@ while True:
 
 		# Check va cham
 		game_active = check_collision(pipe_list)
+
+		if not game_active: 
+			time.sleep(0.5)
 
 		# Tinh diem
 		pipe_score_check()
