@@ -192,7 +192,7 @@ pipe_surface = pygame.image.load('assets/pipe-green.png').convert()
 pipe_surface = pygame.transform.scale2x(pipe_surface)
 pipe_list = []
 pipe_height = [500,600,700] 
-pipe_speed = 4 	# Biến hỗ trợ thay đổi tốc độ ống 
+pipe_speed = 3 	# Biến hỗ trợ thay đổi tốc độ ống 
 
 # Tao timer cho ong
 SPAWNPIPE = pygame.USEREVENT
@@ -303,7 +303,6 @@ while True:
 				bird_movement -= 7  # Độ cao chim nhảy khi ấn Space
 				channel_flap.play(flap_sound)
  
-
 				print(check_black_hole)
 
 
@@ -523,8 +522,8 @@ while True:
 
 		# Check diem de thay doi speed
 		if call_change_speed == 1 and game_active:
-			if (score%5 == 0) and score != 0:			# Nếu điểm 10,20,30 thay đổi tốc độ game
-				if score/5 != (pipe_speed - 4):		# Check ngoại lệ
+			if (score%10 == 0) and score != 0:			# Nếu điểm 10,20,30 thay đổi tốc độ game
+				if score/10 != (pipe_speed - 3):		# Check ngoại lệ
 					pipe_speed+=1
 					pipe_speed_time += 400
 					print(pipe_speed,"  ",pipe_speed_time)
