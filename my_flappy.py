@@ -620,8 +620,8 @@ while True:
 		floor_y_pos = 900
 
 		# Set lại speed
-		pipe_speed = 4
-		pipe_speed_time = 0
+		pipe_speed = 3
+		pipe_speed_time = 1
 
 		score_display('game_over')
 
