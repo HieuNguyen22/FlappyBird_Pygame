@@ -249,7 +249,7 @@ game_over_rect = game_over_surface.get_rect(center = (288,512))
 
 # Am thanh
 bg_sound = pygame.mixer.Sound('sound/sfx_soundbg.wav')
-bg_sound.set_volume(0.1)
+bg_sound.set_volume(0.4)
 thunder_sound = pygame.mixer.Sound('sound/sfx_thunder.mp3')		# Tiếng sấm
 flap_sound = pygame.mixer.Sound('sound/sfx_wing.wav')			# Tiếng đập cánh
 death_sound = pygame.mixer.Sound('sound/sfx_fart.mp3')			# Tiếng ghi điểm
