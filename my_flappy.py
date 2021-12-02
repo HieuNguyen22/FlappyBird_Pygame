@@ -183,7 +183,7 @@ bird_index = 0
 bird = bird_frames[bird_index]
 bird_rect = bird.get_rect(center = (100,512))
 
-# Tao timer cho bird
+# Tao timer cho chim
 BIRDFLAP = pygame.USEREVENT + 1
 pygame.time.set_timer(BIRDFLAP,200) # Thời gian thay đổi trạng thái cho chim = 200ms
 
@@ -249,7 +249,7 @@ game_over_rect = game_over_surface.get_rect(center = (288,512))
 
 # Am thanh
 bg_sound = pygame.mixer.Sound('sound/sfx_soundbg.wav')
-bg_sound.set_volume(0.4)
+bg_sound.set_volume(0.2)
 thunder_sound = pygame.mixer.Sound('sound/sfx_thunder.mp3')		# Tiếng sấm
 flap_sound = pygame.mixer.Sound('sound/sfx_wing.wav')			# Tiếng đập cánh
 death_sound = pygame.mixer.Sound('sound/sfx_fart.mp3')			# Tiếng ghi điểm
@@ -265,18 +265,18 @@ channel_score = pygame.mixer.Channel(4)		# channel ghi diem
 game_active = False		# Biến check trạng thái game
 check_black_hole = False  # Biến check vào hố đen
 check_mode = 0
-countdown_check_hole = 200
+countdown_check_hole = 300
 
 
 
 while True:
 	bg_sound.play()
 	# channel_bg.play(bg_sound)
-	for event in pygame.event.get():
 
+	for event in pygame.event.get():
 		# Check vao ho den
 		if check_collision_black_hole(hole_adpapter):
-			if countdown_check_hole == 200:
+			if countdown_check_hole == 300:
 				countdown_check_hole -= 1
 				check_black_hole = True
 				if check_mode == 0:
@@ -284,11 +284,11 @@ while True:
 				elif check_mode == 1:
 					check_mode = 0 
 			elif countdown_check_hole == 0:
-				countdown_check_hole = 200
+				countdown_check_hole = 300
 			else:
 				countdown_check_hole -= 1
 		else:
-			countdown_check_hole = 200
+			countdown_check_hole = 300
 
 		# Ấn ESC hoặc Quit để thoát game
 		if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
@@ -359,29 +359,9 @@ while True:
 
 
 
-			# # Check người chơi
-			# if check_player == 0:
-			# 	# Reset
-			# 	call_change_bg = 0
-			# 	call_change_speed = 0
-
-			# 	# Check điểm để thay đổi background
-			# 	call_change_bg = 1
-
-			# 	# Check diem de tang toc
-			# 	call_change_speed = 1
-
-			# elif check_player == 1:
-			# 	# Reset
-			# 	call_change_bg = 0
-			# 	call_change_speed = 0
-
-			# 	# Check diem de tang toc
-			# 	call_change_speed = 1
-
-
 		# Dam vao ho den
 		if check_black_hole and check_mode == 1:
+
 			#Set lai check_black_hole
 			check_black_hole = False
 
@@ -412,6 +392,7 @@ while True:
 			floor_y_pos = 850
 
 		elif check_black_hole and check_mode == 0:
+
 			# Set witch or cheems
 			witch_cheems == 0
 
@@ -464,26 +445,6 @@ while True:
 			# Check diem de tang toc
 			call_change_speed = 1
 
-		# Tạo ống
-		if event.type == SPAWNPIPE:
-			pipe_list.extend(create_pipe())
-
-		# Tao black hole
-		if event.type == SPAWNPIPE:
-			if score%2 == 0 and score != 0:
-				black_hole = pygame.image.load('assets/black_hole.png').convert_alpha()
-				black_hole = pygame.transform.scale(black_hole, (100, 100))
-				hole_adpapter = create_black_hole()
-
-		# Chim dap canh
-		if event.type == BIRDFLAP:
-			if bird_index < 2:
-				bird_index += 1
-			else:
-				bird_index = 0
-
-			bird,bird_rect = bird_animation()
-
 		# Lightning
 		if checkLightning == 1:
 			check = 0
@@ -496,6 +457,26 @@ while True:
 					lightning_index = 0
 
 				lightning,lightning_rect = lightning_animation()
+
+		# Tạo ống
+		if event.type == SPAWNPIPE:
+			pipe_list.extend(create_pipe())
+
+		# Tao black hole
+		if event.type == SPAWNPIPE:
+			if score%5 == 0 and score != 0:
+				black_hole = pygame.image.load('assets/black_hole.png').convert_alpha()
+				black_hole = pygame.transform.scale(black_hole, (100, 100))
+				hole_adpapter = create_black_hole()
+
+		# Chim dap canh
+		if event.type == BIRDFLAP:
+			if bird_index < 2:
+				bird_index += 1
+			else:
+				bird_index = 0
+
+			bird,bird_rect = bird_animation()
 
 		# Thunder	
 		if event.type == timer_thunder:
@@ -512,10 +493,10 @@ while True:
 
 		# Check diem de thay đổi bg
 		if call_change_bg == 1 and game_active:
-			if ((score/5)%2 == 0) and score != 0:		# Nếu điểm 20,40,60.. set background ngày
+			if ((score/10)%2 == 0) and score != 0:		# Nếu điểm 20,40.. set background ngày
 				bg = pygame.image.load('assets/background-day.png').convert()
 				bg = pygame.transform.scale2x(bg)
-			elif (score/5)%2 == 1 and game_active: 					# Nếu điểm 10,30,50.. set background đêm
+			elif (score/10)%2 == 1 and game_active: 					# Nếu điểm 10,30,50.. set background đêm
 				bg = pygame.image.load('assets/background-night.png').convert()
 				bg = pygame.transform.scale2x(bg)
 
@@ -565,12 +546,14 @@ while True:
 		# Check va cham
 		game_active = check_collision(pipe_list)
 
-		if not game_active: 
-			time.sleep(0.5)
+		# if not game_active: 
+		# 	time.sleep(0.5)
 
 		# Tinh diem
 		pipe_score_check()
 		score_display("main_game")
+
+
 	else:
 		# Tat nhac nen
 		bg_sound.stop()
@@ -579,14 +562,14 @@ while True:
 		witch_cheems == 0
 
 		# Set lai countdown_check_hole
-		countdown_check_hole = 200
+		countdown_check_hole = 300
 
 		# Set lai check_mode
 		check_mode = 0
 
 		# Xoa black hole
-		# black_hole.fill((0,0,0,0))
-		hole_adpapter = black_hole.get_rect(midtop = (1000,1000)) # Tạo biến ảo
+		black_hole.fill((0,0,0,0))
+		hole_adpapter = black_hole.get_rect(midtop = (2000,2000)) # Biến ảo
 
 		# Set lai check ho den
 		check_black_hole = False
@@ -618,11 +601,9 @@ while True:
 		floor = pygame.image.load('assets/base.png').convert()
 		floor = pygame.transform.scale2x(floor)
 		floor_y_pos = 900
-
 		# Set lại speed
 		pipe_speed = 3
 		pipe_speed_time = 1
-
 		score_display('game_over')
 
 	# Dat san
