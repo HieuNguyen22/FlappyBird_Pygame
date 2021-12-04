@@ -341,18 +341,15 @@ while True:
 
 				elif check_player == 1:
 					if witch_cheems == 0:
+						player_skin = "ghost.png"
 						witch_cheems = 1
-						bird_downflap = pygame.transform.scale(pygame.image.load('assets/ghost.png').convert_alpha(),(65,65))
-						bird_midflap = pygame.transform.scale(pygame.image.load('assets/ghost.png').convert_alpha(),(65,65))
-						bird_upflap = pygame.transform.scale(pygame.image.load('assets/ghost.png').convert_alpha(),(65,65))
-						bird_frames = [bird_downflap,bird_midflap,bird_upflap]
-					else:
+					elif witch_cheems == 1:
+						player_skin = "witch.png"
 						witch_cheems = 0
-						bird_downflap = pygame.transform.scale(pygame.image.load('assets/witch.png').convert_alpha(),(70,70))
-						bird_midflap = pygame.transform.scale(pygame.image.load('assets/witch.png').convert_alpha(),(70,70))
-						bird_upflap = pygame.transform.scale(pygame.image.load('assets/witch.png').convert_alpha(),(70,70))
-						bird_frames = [bird_downflap,bird_midflap,bird_upflap]
-
+					bird_downflap = pygame.transform.scale(pygame.image.load('assets/'+player_skin).convert_alpha(),(65,65))
+					bird_midflap = pygame.transform.scale(pygame.image.load('assets/'+player_skin).convert_alpha(),(65,65))
+					bird_upflap = pygame.transform.scale(pygame.image.load('assets/'+player_skin).convert_alpha(),(65,65))
+					bird_frames = [bird_downflap,bird_midflap,bird_upflap]
 					# Lightning
 					checkLightning = 1  	# Báo lightning
 					channel_thunder.play(thunder_sound)
